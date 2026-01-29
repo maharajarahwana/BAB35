@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>BAB35</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>BAB1</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Latihan Kosakata</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  .card {
+    background: white;
+    padding: 30px;
+    width: 400px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  input {
+    width: 90%;
+    padding: 8px;
+    margin-top: 15px;
+  }
+  button {
+    margin-top: 20px;
+    padding: 8px 15px;
+    cursor: pointer;
+  }
+  .result {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .wrong { color: red; }
+  .correct { color: green; }
+  ol { text-align:left; max-height:400px; overflow:auto; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <h2 id="question"></h2>
+  <input type="text" id="answerInput" placeholder="Tulis jawaban di sini">
+  <br>
+  <button id="nextBtn">Selanjutnya</button>
+</div>
+
+<script>
+let questions = [
+{ soal: "작업장 관리", jawaban: "manajemen tempat kerja" },
+{ soal: "과거", jawaban: "masa lalu" },
+{ soal: "-(으)ㅂ시다", jawaban: "mari / ayo (tata bahasa)" },
+{ soal: "농업", jawaban: "pertanian" },
+{ soal: "-(으)ㄹ", jawaban: "akan (tata bahasa)" },
+{ soal: "경공업", jawaban: "industri ringan" },
+{ soal: "환경 관리", jawaban: "pengelolaan lingkungan" },
+{ soal: "제조업", jawaban: "industri manufaktur" },
+{ soal: "더럽다", jawaban: "kotor" },
+{ soal: "서비스업", jawaban: "industri jasa" },
+{ soal: "엉망이다", jawaban: "berantakan" },
+{ soal: "고부가가치", jawaban: "nilai tambah tinggi" },
+{ soal: "깨끗하다", jawaban: "bersih" },
+{ soal: "비중", jawaban: "proporsi / porsi" },
+{ soal: "정리하다", jawaban: "merapikan / membereskan" },
+{ soal: "어업", jawaban: "perikanan" },
+{ soal: "냄새가 심하다", jawaban: "bau menyengat" },
+{ soal: "전체", jawaban: "keseluruhan" },
+{ soal: "쾌적하다", jawaban: "nyaman / segar" },
+{ soal: "상대적", jawaban: "relatif" },
+{ soal: "치우다", jawaban: "membersihkan / merapikan" },
+{ soal: "낮다", jawaban: "rendah" },
+{ soal: "쓸다", jawaban: "menyapu" },
+{ soal: "산물", jawaban: "hasil / produk" },
+{ soal: "닦다", jawaban: "mengelap / mengepel" },
+{ soal: "생산", jawaban: "produksi" },
+{ soal: "환기하다", jawaban: "menukar udara" },
+{ soal: "여전", jawaban: "tetap" },
+{ soal: "버리다", jawaban: "membuang" },
+{ soal: "역할", jawaban: "peran" },
+{ soal: "작업장", jawaban: "tempat kerja" },
+{ soal: "전자", jawaban: "elektronik" },
+{ soal: "작업대", jawaban: "meja kerja" },
+{ soal: "자동차", jawaban: "mobil" },
+{ soal: "열다", jawaban: "membuka" },
+{ soal: "조선", jawaban: "industri galangan kapal" },
+{ soal: "먼저", jawaban: "terlebih dahulu" },
+{ soal: "화학 산업", jawaban: "industri kimia" },
+{ soal: "도구", jawaban: "alat" },
+{ soal: "세계적인", jawaban: "bertaraf dunia" },
+{ soal: "덮밥", jawaban: "nasi dengan lauk" },
+{ soal: "경쟁력", jawaban: "daya saing" },
+{ soal: "옆집", jawaban: "rumah sebelah" },
+{ soal: "대기업", jawaban: "perusahaan besar" },
+{ soal: "앞뒤", jawaban: "depan – belakang" },
+{ soal: "차지하다", jawaban: "menduduki / menempati" },
+{ soal: "잎새", jawaban: "daun" },
+{ soal: "소프트웨어 산업", jawaban: "industri perangkat lunak" },
+{ soal: "앞다리", jawaban: "kaki bagian depan" },
+{ soal: "발전", jawaban: "perkembangan" },
+{ soal: "자재창고 관리", jawaban: "manajemen gudang material" },
+{ soal: "바탕", jawaban: "dasar" },
+{ soal: "창고", jawaban: "gudang" },
+{ soal: "관광", jawaban: "pariwisata" },
+{ soal: "냉장 창고", jawaban: "gudang dingin" },
+{ soal: "디지털 경제", jawaban: "ekonomi digital" },
+{ soal: "물류 창고", jawaban: "gudang logistik" },
+{ soal: "이끌다", jawaban: "memimpin" },
+{ soal: "컨테이너", jawaban: "kontainer" },
+{ soal: "힘입어", jawaban: "berkat" },
+{ soal: "자재", jawaban: "material" },
+{ soal: "콘텐츠", jawaban: "konten" },
+{ soal: "관리하다", jawaban: "mengelola" },
+{ soal: "주목", jawaban: "perhatian" },
+{ soal: "재고를 파악하다", jawaban: "mengecek stok" },
+{ soal: "시대", jawaban: "era" },
+{ soal: "보관하다 / 저장하다", jawaban: "menyimpan" },
+{ soal: "대비하다", jawaban: "mempersiapkan" },
+{ soal: "온도를 유지하다", jawaban: "menjaga suhu" },
+{ soal: "인공지능", jawaban: "kecerdasan buatan (AI)" },
+{ soal: "덮개를 덮다", jawaban: "menutup dengan penutup" },
+{ soal: "빅데이터", jawaban: "big data" },
+{ soal: "중요하다", jawaban: "penting" },
+{ soal: "자율주행차", jawaban: "mobil otonom" },
+{ soal: "적정 온도", jawaban: "suhu yang tepat" },
+{ soal: "로봇", jawaban: "robot" },
+{ soal: "두다", jawaban: "meletakkan / menaruh" },
+{ soal: "기술 개발", jawaban: "pengembangan teknologi" },
+{ soal: "곧", jawaban: "segera" },
+{ soal: "투자", jawaban: "investasi" },
+{ soal: "제 생각에도 그래요", jawaban: "saya pikir juga begitu" },
+{ soal: "성장", jawaban: "pertumbuhan" },
+{ soal: "한국의 산업 구조", jawaban: "struktur industri Korea" },
+{ soal: "동력", jawaban: "kekuatan pendorong" },
+{ soal: "기술 혁신", jawaban: "inovasi teknologi" },
+{ soal: "노력하다", jawaban: "berusaha" },
+{ soal: "지속적", jawaban: "berkelanjutan" },
+{ soal: "이러하다", jawaban: "seperti ini" },
+{ soal: "변화하다", jawaban: "berubah" },
+{ soal: "소음이 심하다", jawaban: "bising" },
+{ soal: "기여하다", jawaban: "memberikan kontribusi" }
+];
+
+// Acak soal
+questions = questions.sort(() => Math.random() - 0.5);
+
+let index = 0;
+let score = 0;
+let userAnswers = [];
+
+const questionEl = document.getElementById("question");
+const answerInput = document.getElementById("answerInput");
+const nextBtn = document.getElementById("nextBtn");
+const card = document.querySelector(".card");
+
+function showQuestion() {
+  questionEl.textContent = "Soal " + (index + 1) + ": " + questions[index].soal;
+  answerInput.value = "";
+  answerInput.focus();
+}
+
+nextBtn.addEventListener("click", () => {
+  const userAnswer = answerInput.value.trim().toLowerCase();
+  userAnswers[index] = userAnswer; // simpan jawaban sesuai index
+
+  if (userAnswer === questions[index].jawaban) {
+    score++;
+  }
+
+  index++;
+  if (index < questions.length) {
+    showQuestion();
+  } else {
+    showResult();
+  }
+});
+
+function showResult() {
+  let answerList = "";
+  questions.forEach((q, i) => {
+    if (userAnswers[i] === q.jawaban) {
+      answerList += `<li>${q.soal} = <span class="correct">${q.jawaban}</span></li>`;
+    } else {
+      answerList += `<li>${q.soal} = <span class="correct">${q.jawaban}</span><br>
+                     Jawaban kamu: <span class="wrong">${userAnswers[i] || "(kosong)"}</span></li>`;
+    }
+  });
+
+  card.innerHTML = `
+    <h2>Hasil</h2>
+    <p class="result">Nilai: ${score} / ${questions.length}</p>
+    <hr>
+    <p>Kunci Jawaban:</p>
+    <ol>${answerList}</ol>
+  `;
+}
+
+showQuestion();
+</script>
+
+</body>
+</html>
+    
+  </body>
+  
+</html>
